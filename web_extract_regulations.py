@@ -11,7 +11,6 @@ schema = {
     "properties": {
         "law_content": {"type": "string", "description": "The content of the law"},
     },
-    "required": ["law_content"],
 }
 
 def extract(content: str, schema: dict):
@@ -25,8 +24,9 @@ def scrape_with_playwright(urls, schema):
         docs, tags_to_extract=["span"]
     )
     print("Extracting content with LLM")
+    print(f"{docs_transformed[0].page_content=}")
     extracted_content = extract(schema=schema, content=docs_transformed[0].page_content)
-    pprint.pprint(extracted_content)
+    # pprint.pprint(extracted_content)
     return extracted_content
 
     # # Grab the first 1000 tokens of the site
